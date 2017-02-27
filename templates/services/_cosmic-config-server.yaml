@@ -1,0 +1,13 @@
+{{- define "services.cosmic-config-server" -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: cosmic-config-server
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: cosmic-config-server
+  ports:
+    - port: 8080
+      protocol: TCP
+{{- end -}}

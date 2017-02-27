@@ -1,0 +1,42 @@
+namespace: missioncriticalcloud
+
+services:
+  - rabbitmq
+  - elasticsearch
+  - cosmic-config-server
+  - cosmic-usage-api
+
+configmaps:
+  - init-container
+
+secrets:
+  - rabbitmq
+  - logstash
+  - cosmic-config-server
+  - cosmic-metrics-collector
+  - cosmic-usage-api
+
+deployments:
+  - rabbitmq
+  - elasticsearch
+  - logstash
+  - cosmic-config-server
+  - cosmic-metrics-collector
+  - cosmic-usage-api
+
+rabbitmq:
+  username: mr_bunny
+  password: carrots
+
+cosmic_config_server:
+  vault:
+    scheme: http
+    host: cosmic-vault-host
+    port: 8200
+    backend: secret
+
+cosmic_metrics_collector:
+  vault_token: cosmic-vault-token
+
+cosmic_usage_api:
+  vault_token: cosmic-vault-token

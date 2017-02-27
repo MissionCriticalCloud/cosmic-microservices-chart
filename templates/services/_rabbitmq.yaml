@@ -1,0 +1,26 @@
+{{- define "services.rabbitmq" -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: rabbitmq
+  ports:
+    - name: "management"
+      port: 15672
+      protocol: TCP
+    - name: "epmd"
+      port: 4369
+      protocol: TCP
+    - name: "amqp-1"
+      port: 5671
+      protocol: TCP
+    - name: "amqp-2"
+      port: 5672
+      protocol: TCP
+    - name: "erlang"
+      port: 25672
+      protocol: TCP
+{{- end -}}

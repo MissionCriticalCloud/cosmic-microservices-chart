@@ -1,0 +1,43 @@
+{{- define "deployments.cosmic-usage-api" -}}
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cosmic-usage-api
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cosmic-usage-api
+      annotations:
+        pod.beta.kubernetes.io/init-containers: '[{
+            "name": "install",
+            "image": "busybox",
+            "command": ["/bin/sh"],
+            "args": ["/scripts/readiness-probe.sh", "cosmic-config-server", "8080", "/health"],
+            "imagePullPolicy": "IfNotPresent",
+            "volumeMounts": [{
+                "name": "init-container-files",
+                "mountPath": "/scripts",
+                "readOnly": true
+            }]
+        }]'
+    spec:
+      containers:
+      - name: cosmic-usage-api
+        image: missioncriticalcloud/cosmic-usage-api
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: SPRING_APPLICATION_JSON
+          valueFrom:
+            secretKeyRef:
+              name: cosmic-usage-api
+              key: config
+        ports:
+        - containerPort: 8080
+      volumes:
+      - name: init-container-files
+        configMap:
+          name: init-container-files
+{{- end -}}

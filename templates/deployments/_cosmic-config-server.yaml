@@ -1,0 +1,33 @@
+{{- define "deployments.cosmic-config-server" -}}
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cosmic-config-server
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cosmic-config-server
+    spec:
+      containers:
+      - name: cosmic-config-server
+        image: missioncriticalcloud/cosmic-config-server
+        imagePullPolicy: IfNotPresent
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 30
+        env:
+        - name: SPRING_APPLICATION_JSON
+          valueFrom:
+            secretKeyRef:
+              name: cosmic-config-server
+              key: config
+        ports:
+        - containerPort: 8080
+{{- end -}}
