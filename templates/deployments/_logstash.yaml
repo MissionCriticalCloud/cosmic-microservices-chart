@@ -1,0 +1,26 @@
+{{- define "deployments.logstash" -}}
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: logstash
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: logstash
+    spec:
+      containers:
+      - name: logstash
+        image: logstash:2
+        args: ["-f", "/config-dir/logstash.conf"]
+        volumeMounts:
+        - name: config-dir
+          mountPath: /config-dir
+          readOnly: true 
+      volumes:
+      - name: config-dir
+        secret:
+          secretName: logstash-files
+{{- end -}}

@@ -1,0 +1,10 @@
+{{- define "configmaps.init-container" -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init-container-files
+  namespace: {{ .Values.namespace }}
+data:
+  readiness-probe.sh: |
+{{ include "configmaps.init-container-files.readiness-probe.sh" . | indent 4 }}
+{{- end -}}
