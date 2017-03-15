@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: cosmic-metrics-collector
-        image: missioncriticalcloud/cosmic-metrics-collector
+        image: {{ .Values.private_registry }}missioncriticalcloud/cosmic-metrics-collector
         imagePullPolicy: IfNotPresent
         env:
         - name: SPRING_APPLICATION_JSON
