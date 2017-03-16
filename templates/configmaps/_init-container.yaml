@@ -7,4 +7,10 @@ metadata:
 data:
   readiness-probe.sh: |
 {{ include "configmaps.init-container-files.readiness-probe.sh" . | indent 4 }}
+  cosmic-usage-api-config.json: |
+{{ include "configmaps.init-container-files.cosmic-usage-api-config.json" . | indent 4 }}
+  cosmic-metrics-collector-config.json: |
+{{ include "configmaps.init-container-files.cosmic-metrics-collector-config.json" . | indent 4 }}
+  post-vault-config.sh: |
+{{ include "configmaps.init-container-files.post-vault-config.sh" . | indent 4 }}
 {{- end -}}

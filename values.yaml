@@ -1,9 +1,11 @@
 namespace: missioncriticalcloud
 private_registry:
+dev_mode: false
 
 services:
   - rabbitmq
   - elasticsearch
+  - cosmic-vault
   - cosmic-config-server
   - cosmic-usage-api
 
@@ -21,6 +23,7 @@ deployments:
   - rabbitmq
   - elasticsearch
   - logstash
+  - cosmic-vault
   - cosmic-config-server
   - cosmic-metrics-collector
   - cosmic-usage-api
@@ -42,3 +45,6 @@ cosmic_metrics_collector:
 
 cosmic_usage_api:
   vault_token: cosmic-vault-token
+
+cosmic_vault:
+  root_token: cosmic-vault-token
