@@ -32,9 +32,10 @@ rabbitmq:
 cosmic_config_server:
   vault:
     scheme: http
-    host: cosmic-vault-host
+    host: cosmic-vault
     port: 8200
     backend: secret
+    health_token: cosmic-vault-token
 
 cosmic_metrics_collector:
   vault_token: cosmic-vault-token
