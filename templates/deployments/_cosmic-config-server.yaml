@@ -19,6 +19,9 @@ spec:
           httpGet:
             path: /health
             port: 8080
+            httpHeaders:
+                - name: X-Config-Token
+                  value: {{ .Values.cosmic_config_server.vault.health_token }}
           initialDelaySeconds: 10
           timeoutSeconds: 5
           periodSeconds: 30
