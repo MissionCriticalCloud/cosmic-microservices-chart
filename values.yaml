@@ -2,6 +2,9 @@ namespace: missioncriticalcloud
 private_registry:
 dev_mode: false
 
+namespaces:
+  - cosmic-namespace
+
 services:
   - rabbitmq
   - elasticsearch

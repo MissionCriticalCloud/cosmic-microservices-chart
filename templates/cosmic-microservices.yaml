@@ -1,4 +1,8 @@
 {{- $context := . -}}
+{{- range .Values.namespaces -}}
+{{ include ( printf "namespaces.%s" . ) $context }}
+---
+{{ end -}}
 {{- range .Values.services -}}
 {{ include ( printf "services.%s" . ) $context }}
 ---
