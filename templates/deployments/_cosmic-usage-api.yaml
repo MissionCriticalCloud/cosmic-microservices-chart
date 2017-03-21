@@ -15,7 +15,13 @@ spec:
             "name": "install",
             "image": "busybox",
             "command": ["/bin/sh"],
-            "args": ["/scripts/readiness-probe.sh", "cosmic-config-server", "8080", "/health"],
+            "args": [
+                "/scripts/readiness-probe.sh",
+                "-h", "cosmic-config-server",
+                "-p", "8080",
+                "-P", "/health",
+                "-H", "X-Config-Token: {{ .Values.cosmic_config_server.vault.health_token }}"
+            ],
             "imagePullPolicy": "IfNotPresent",
             "volumeMounts": [{
                 "name": "init-container-files",
@@ -26,7 +32,7 @@ spec:
     spec:
       containers:
       - name: cosmic-usage-api
-        image: missioncriticalcloud/cosmic-usage-api
+        image: {{ .Values.private_registry }}missioncriticalcloud/cosmic-usage-api
         imagePullPolicy: IfNotPresent
         env:
         - name: SPRING_APPLICATION_JSON

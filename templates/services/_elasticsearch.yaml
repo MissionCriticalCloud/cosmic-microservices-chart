@@ -8,10 +8,16 @@ spec:
   selector:
     app: elasticsearch
   ports:
-  - name: "http"
-    port: 9200
-    protocol: TCP
-  - name: "transport"
-    port: 9300
-    protocol: TCP
+    - name: "http"
+      port: 9200
+      protocol: TCP
+      {{- if .Values.dev_mode }}
+      nodePort: 30121
+      {{- end }}
+    - name: "transport"
+      port: 9300
+      protocol: TCP
+  {{- if .Values.dev_mode }}
+  type: NodePort
+  {{- end }}
 {{- end -}}

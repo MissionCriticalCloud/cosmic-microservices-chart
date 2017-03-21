@@ -1,25 +1,59 @@
 {{- define "configmaps.init-container-files.readiness-probe.sh" -}}
 #!/bin/sh
+set -x
 
-if [ -n "$1" ]; then host=$1; else host='localhost'; fi
-if [ -n "$2" ]; then port=$2; else port=80; fi
-if [ -n "$3" ]; then path=$3; else path='/'; fi
-if [ -n "$4" ]; then statusCode=$4; else statusCode=200; fi
-if [ -n "$5" ]; then initialDelaySeconds=$5; else initialDelaySeconds=0; fi
-if [ -n "$6" ]; then timeoutSeconds=$6; else timeoutSeconds=10; fi
-if [ -n "$7" ]; then periodSeconds=$7; else periodSeconds=10; fi
-if [ -n "$8" ]; then failureThreshold=$8; else failureThreshold=3; fi
+method=GET
+host='localhost'
+port=80
+path='/'
+statusCode=200
+body=''
+headers=''
+initialDelaySeconds=0
+timeoutSeconds=10
+periodSeconds=10
+failureThreshold=3
+
+while getopts 'm:h:p:P:s:b:H:d:t:w:x:' OPTION
+do
+  case $OPTION in
+  m)    method="$OPTARG"
+        ;;
+  h)    host="$OPTARG"
+        ;;
+  p)    port="$OPTARG"
+        ;;
+  P)    path="$OPTARG"
+        ;;
+  s)    statusCode="$OPTARG"
+        ;;
+  b)    body="$OPTARG"
+        ;;
+  H)    headers="$OPTARG"
+        ;;
+  d)    initialDelaySeconds="$OPTARG"
+        ;;
+  t)    timeoutSeconds="$OPTARG"
+        ;;
+  w)    periodSeconds="$OPTARG"
+        ;;
+  x)    failureThreshold="$OPTARG"
+        ;;
+  esac
+done
+
+
 
 protocol='HTTP/1.1'
 
 sleep $initialDelaySeconds
 attemps=1
 while [[ $attemps -le $failureThreshold ]]; do
-  if printf "GET %s %s\nHost: %s\n\n" $path $protocol $host | nc $host $port -w $timeoutSeconds | grep -Fqs "$protocol $statusCode"; then
+  if printf "${method} ${path} ${protocol}\nHost: ${host}\n${headers}\n\n${body}\n"  | nc $host $port -w $timeoutSeconds | grep -Fqs "$protocol $statusCode"; then
     exit 0
   else
     if [ $attemps -lt $failureThreshold ]; then sleep $periodSeconds; fi
-    ((attemps++))
+    let "attemps=attemps+1"
   fi
 done
 
