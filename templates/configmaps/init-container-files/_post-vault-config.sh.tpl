@@ -1,6 +1,7 @@
 {{- define "configmaps.init-container-files.post-vault-config.sh" -}}
 #!/bin/sh
 set -x
+
 host='localhost'
 port=80
 headers=''

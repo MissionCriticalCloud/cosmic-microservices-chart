@@ -50,15 +50,12 @@ sleep $initialDelaySeconds
 attemps=1
 while [[ $attemps -le $failureThreshold ]]; do
   echo "Executing http method:"
-  printf "${method} ${path} ${protocol}\nHost: ${host}\n${headers}\n\n${body}\n"
-  if printf "${method} ${path} ${protocol}\nHost: ${host}\n${headers}\n\n${body}\n"  | nc $host $port -w $timeoutSeconds | tee /tmp/http_result | grep -Fqs "$protocol $statusCode"; then
+  if printf "${method} ${path} ${protocol}\nHost: ${host}\n${headers}\n\n${body}\n"  | nc $host $port -w $timeoutSeconds | grep -Fqs "$protocol $statusCode"; then
     exit 0
   else
     if [ $attemps -lt $failureThreshold ]; then sleep $periodSeconds; fi
     let "attemps=attemps+1"
   fi
-  echo "Result returned from remote host:"
-  cat /tmp/http_result
 done
 
 exit 1

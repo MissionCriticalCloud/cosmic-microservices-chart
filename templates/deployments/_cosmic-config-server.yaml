@@ -13,7 +13,7 @@ spec:
       annotations:
         pod.beta.kubernetes.io/init-containers: '[
           {
-              "name": "install",
+              "name": "vault-health",
               "image": "busybox",
               "command": ["/bin/sh"],
               "args": [
@@ -32,7 +32,7 @@ spec:
           {{- if .Values.dev_mode }}
           ,
           {
-              "name": "loadconfig",
+              "name": "vault-config-loader",
               "image": "busybox",
               "command": ["/bin/sh"],
               "args": [
