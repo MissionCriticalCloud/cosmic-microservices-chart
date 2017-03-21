@@ -1,4 +1,4 @@
-{{- define "configmaps.init-container-files.readiness-probe.sh" -}}
+{{- define "configmaps.init-container-scripts.readiness-probe.sh" -}}
 #!/bin/sh
 set -x
 
@@ -42,14 +42,12 @@ do
   esac
 done
 
-
-
 protocol='HTTP/1.1'
 
 sleep $initialDelaySeconds
 attemps=1
 while [[ $attemps -le $failureThreshold ]]; do
-  if printf "${method} ${path} ${protocol}\nHost: ${host}\n${headers}\n\n${body}\n"  | nc $host $port -w $timeoutSeconds | grep -Fqs "$protocol $statusCode"; then
+  if printf "${method} ${path} ${protocol}\nHost: ${host}\n${headers}\n\n${body}\n" | nc $host $port -w $timeoutSeconds | grep -Fqs "$protocol $statusCode"; then
     exit 0
   else
     if [ $attemps -lt $failureThreshold ]; then sleep $periodSeconds; fi

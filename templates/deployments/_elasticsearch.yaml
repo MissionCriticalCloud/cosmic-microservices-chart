@@ -1,4 +1,5 @@
 {{- define "deployments.elasticsearch" -}}
+{{- if .Values.dev_mode -}}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -17,4 +18,5 @@ spec:
         ports:
         - containerPort: 9200
         - containerPort: 9300
+{{- end -}}
 {{- end -}}

@@ -17,9 +17,9 @@ spec:
         image: vault:latest
         env:
         - name: VAULT_DEV_ROOT_TOKEN_ID
-          value: {{ .Values.cosmic_vault.root_token }}
+          value: {{ .Values.vault.root_token }}
         - name: VAULT_TOKEN
-          value: {{ .Values.cosmic_vault.root_token }}
+          value: {{ .Values.vault.root_token }}
         - name: VAULT_ADDR
           value: http://127.0.0.1:8200
         ports:
@@ -28,5 +28,24 @@ spec:
           capabilities:
             add:
             - IPC_LOCK
+        readinessProbe:
+          httpGet:
+            path: /v1/sys/health
+            port: 8200
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 30
+        volumeMounts:
+        - name: cosmic-vault-files
+          mountPath: /files
+          readOnly: true
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "/files/init.sh"]
+      volumes:
+      - name: cosmic-vault-files
+        configMap:
+          name: cosmic-vault-files
 {{- end -}}
 {{- end -}}

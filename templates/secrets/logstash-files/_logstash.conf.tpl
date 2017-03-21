@@ -23,7 +23,14 @@ filter {
 
 output {
   elasticsearch {
-    hosts => ["elasticsearch"]
+    hosts => [
+      {{- range $index, $node := .Values.elasticsearch.cluster_nodes -}}
+        {{- if $index -}}
+          ,
+        {{- end -}}
+        {{- $node | quote -}}
+      {{- end -}}
+    ]
     index => "cosmic-metrics-%{+YYYY.MM.dd}"
     document_type => "metric"
     codec => "json"

@@ -1,4 +1,4 @@
-{{- define "configmaps.init-container-files.cosmic-metrics-collector-config.json" -}}
+{{- define "configmaps.cosmic-vault-files.cosmic-metrics-collector.json" -}}
 {
   "spring": {
     "datasource": {

@@ -10,8 +10,8 @@ spec:
   ports:
     - port: 8080
       protocol: TCP
-  {{- if .Values.dev_mode }}
+{{- if .Values.dev_mode }}
       nodePort: 31011
   type: NodePort
-  {{- end }}
+{{- end -}}
 {{- end -}}

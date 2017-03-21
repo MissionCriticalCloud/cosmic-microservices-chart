@@ -10,9 +10,7 @@ spec:
     app: cosmic-vault
   ports:
     - port: 8200
-      name: http-port
       protocol: TCP
-      targetPort: 8200
       nodePort: 30131
   type: NodePort
 {{- end -}}
