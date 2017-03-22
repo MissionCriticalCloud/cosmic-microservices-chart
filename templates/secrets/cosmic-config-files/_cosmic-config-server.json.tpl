@@ -5,10 +5,10 @@
       "config": {
         "server": {
           "vault": {
-            "scheme": {{ .Values.cosmic_config_server.vault.scheme | quote }},
-            "host": {{ .Values.cosmic_config_server.vault.host | quote }},
-            "port": {{ .Values.cosmic_config_server.vault.port }},
-            "backend": {{ .Values.cosmic_config_server.vault.backend | quote }}
+            "scheme": {{ .Values.vault.scheme | quote }},
+            "host": {{ .Values.vault.host | quote }},
+            "port": {{ .Values.vault.port }},
+            "backend": {{ .Values.vault.backend | quote }}
           }
         }
       }

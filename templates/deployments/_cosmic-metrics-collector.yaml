@@ -11,28 +11,29 @@ spec:
       labels:
         app: cosmic-metrics-collector
       annotations:
-        pod.beta.kubernetes.io/init-containers: '[{
-            "name": "install",
+        pod.beta.kubernetes.io/init-containers: |
+          [{
+            "name": "config-server-health-checker",
             "image": "busybox",
             "command": ["/bin/sh"],
             "args": [
-                "/scripts/readiness-probe.sh",
-                "-h", "cosmic-config-server",
-                "-p", "8080",
-                "-P", "/health",
-                "-H", "X-Config-Token: {{ .Values.cosmic_config_server.vault.health_token }}"
+              "/scripts/readiness-probe.sh",
+              "-h", "cosmic-config-server",
+              "-p", "8080",
+              "-P", "/health",
+              "-H", "X-Config-Token: {{ .Values.vault.read_only_token }}"
             ],
             "imagePullPolicy": "IfNotPresent",
             "volumeMounts": [{
-                "name": "init-container-files",
-                "mountPath": "/scripts",
-                "readOnly": true
+              "name": "init-container-scripts",
+              "mountPath": "/scripts",
+              "readOnly": true
             }]
-        }]'
+          }]
     spec:
       containers:
       - name: cosmic-metrics-collector
-        image: {{ .Values.private_registry }}missioncriticalcloud/cosmic-metrics-collector
+        image: {{ .Values.registry }}missioncriticalcloud/cosmic-metrics-collector
         imagePullPolicy: IfNotPresent
         env:
         - name: SPRING_APPLICATION_JSON
@@ -41,7 +42,7 @@ spec:
               name: cosmic-metrics-collector
               key: config
       volumes:
-      - name: init-container-files
+      - name: init-container-scripts
         configMap:
-          name: init-container-files
+          name: init-container-scripts
 {{- end -}}

@@ -1,6 +1,12 @@
-namespace: missioncriticalcloud
-private_registry:
+#
+# Default values.yaml
+#
+
 dev_mode: false
+
+registry: # for example: docker.io/   <-- don't forget the slash at the end
+
+namespace: missioncriticalcloud
 
 services:
   - rabbitmq
@@ -10,7 +16,8 @@ services:
   - cosmic-usage-api
 
 configmaps:
-  - init-container
+  - init-container-scripts
+  - cosmic-vault-files
 
 secrets:
   - rabbitmq
@@ -32,6 +39,18 @@ rabbitmq:
   username: mr_bunny
   password: carrots
 
+vault:
+  scheme: http
+  host: cosmic-vault
+  port: 8200
+  backend: secret
+  root_token: cosmic-vault-token # only when 'dev_mode: true'
+  read_only_token: cosmic-vault-token
+
+elasticsearch:
+  cluster_nodes:
+  - elasticsearch:9300
+
 cosmic_config_server:
   vault:
     scheme: http
@@ -39,12 +58,3 @@ cosmic_config_server:
     port: 8200
     backend: secret
     health_token: cosmic-vault-token
-
-cosmic_metrics_collector:
-  vault_token: cosmic-vault-token
-
-cosmic_usage_api:
-  vault_token: cosmic-vault-token
-
-cosmic_vault:
-  root_token: cosmic-vault-token
