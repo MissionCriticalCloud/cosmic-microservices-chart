@@ -49,7 +49,7 @@ vault:
 
 elasticsearch:
   cluster_nodes:
-  - elasticsearch:9300
+  - http://elasticsearch:9200
 
 cosmic_config_server:
   vault:

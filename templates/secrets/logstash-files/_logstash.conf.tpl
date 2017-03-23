@@ -35,7 +35,7 @@ output {
     document_type => "metric"
     codec => "json"
     manage_template => true
-    template => "/config-dir/cosmic-metrics-template.json"
+    template => "/files/cosmic-metrics-template.json"
     template_name => "cosmic-metrics-template"
     template_overwrite => true
   }
