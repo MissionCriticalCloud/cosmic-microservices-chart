@@ -36,8 +36,8 @@ deployments:
   - cosmic-usage-api
 
 rabbitmq:
-  username: mr_bunny
-  password: carrots
+  username: root
+  password: password
 
 vault:
   scheme: http

@@ -8,9 +8,6 @@ spec:
   selector:
     app: rabbitmq
   ports:
-    - name: "management"
-      port: 15672
-      protocol: TCP
     - name: "epmd"
       port: 4369
       protocol: TCP
@@ -23,4 +20,11 @@ spec:
     - name: "erlang"
       port: 25672
       protocol: TCP
+    - name: "management"
+      port: 15672
+      protocol: TCP
+{{- if .Values.dev_mode }}
+      nodePort: 30101
+  type: NodePort
+{{- end -}}
 {{- end -}}

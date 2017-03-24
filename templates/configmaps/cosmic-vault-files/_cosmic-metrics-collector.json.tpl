@@ -10,8 +10,8 @@
     "rabbitmq": {
       "host": "rabbitmq",
       "port": 5672,
-      "username": "root",
-      "password": "password"
+      "username": {{ .Values.rabbitmq.username | quote }},
+      "password": {{ .Values.rabbitmq.password | quote }}
     }
   },
   "cosmic": {
