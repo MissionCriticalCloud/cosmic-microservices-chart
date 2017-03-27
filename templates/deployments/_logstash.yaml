@@ -14,13 +14,17 @@ spec:
       containers:
       - name: logstash
         image: logstash:2
-        args: ["-f", "/config-dir/logstash.conf"]
+{{- if .Values.dev_mode }}
+        args: ["-f", "/files/logstash.conf", "--debug"]
+{{- else }}
+        args: ["-f", "/files/logstash.conf"]
+{{- end }}
         volumeMounts:
-        - name: config-dir
-          mountPath: /config-dir
+        - name: logstash-files
+          mountPath: /files
           readOnly: true 
       volumes:
-      - name: config-dir
+      - name: logstash-files
         secret:
           secretName: logstash-files
 {{- end -}}
