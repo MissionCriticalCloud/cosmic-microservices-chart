@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: cosmic-vault
-        image: vault:latest
+        image: vault:{{ .Values.cosmic_vault.image_tag }}
         env:
         - name: VAULT_DEV_ROOT_TOKEN_ID
           value: {{ .Values.vault.root_token }}

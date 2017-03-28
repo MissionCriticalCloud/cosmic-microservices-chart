@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: elasticsearch
-        image: elasticsearch:2
+        image: elasticsearch:{{ .Values.elasticsearch.image_tag }}
         ports:
         - containerPort: 9200
         - containerPort: 9300
