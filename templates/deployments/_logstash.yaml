@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: logstash
-        image: logstash:2
+        image: logstash:{{ .Values.logstash.image_tag }}
 {{- if .Values.dev_mode }}
         args: ["-f", "/files/logstash.conf", "--debug"]
 {{- else }}

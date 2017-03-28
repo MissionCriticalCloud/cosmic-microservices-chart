@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: cosmic-config-server
-        image: {{ .Values.registry }}missioncriticalcloud/cosmic-config-server
+        image: {{ .Values.registry }}missioncriticalcloud/cosmic-config-server:{{ .Values.cosmic_config_server.image_tag }}
         imagePullPolicy: IfNotPresent
         readinessProbe:
           httpGet:

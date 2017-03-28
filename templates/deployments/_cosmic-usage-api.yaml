@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
       - name: cosmic-usage-api
-        image: {{ .Values.registry }}missioncriticalcloud/cosmic-usage-api
+        image: {{ .Values.registry }}missioncriticalcloud/cosmic-usage-api:{{ .Values.cosmic_usage_api.image_tag }}
         imagePullPolicy: IfNotPresent
         env:
         - name: SPRING_APPLICATION_JSON

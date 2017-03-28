@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: rabbitmq
-        image: rabbitmq:management
+        image: rabbitmq:{{ .Values.rabbitmq.image_tag }}
         env:
         - name: RABBITMQ_DEFAULT_USER
           valueFrom:

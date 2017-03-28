@@ -36,6 +36,7 @@ deployments:
   - cosmic-usage-api
 
 rabbitmq:
+  image_tag: management
   username: root
   password: password
 
@@ -47,11 +48,25 @@ vault:
   root_token: cosmic-vault-token # only when 'dev_mode: true'
   read_only_token: cosmic-vault-token
 
+logstash:
+  image_tag: 2
+
 elasticsearch:
+  image_tag: 2
   cluster_nodes:
   - http://elasticsearch:9200
 
+cosmic_vault:
+  image_tag: latest
+
+cosmic_usage_api:
+  image_tag: latest
+
+cosmic_metrics_collector:
+  image_tag: latest
+
 cosmic_config_server:
+  image_tag: latest
   vault:
     scheme: http
     host: cosmic-vault
