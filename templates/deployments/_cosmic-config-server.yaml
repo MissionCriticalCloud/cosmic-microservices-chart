@@ -14,13 +14,16 @@ spec:
         pod.beta.kubernetes.io/init-containers: |
           [{
             "name": "vault-health-checker",
-            "image": "busybox",
-            "command": ["/bin/sh"],
+            "image": "python:alpine",
+            "command": ["/usr/local/bin/python"],
             "args": [
-              "/scripts/readiness-probe.sh",
-              "-h", {{ .Values.vault.host | quote }},
-              "-p", {{ .Values.vault.port | quote }},
-              "-P", "/v1/sys/health"
+              "/scripts/readiness-probe.py",
+{{- if eq .Values.vault.scheme "https" }}
+              "--tls",
+{{- end }}
+              "--host", {{ .Values.vault.host | quote }},
+              "--port", {{ .Values.vault.port | quote }},
+              "--path", "/v1/sys/health"
             ],
             "imagePullPolicy": "IfNotPresent",
             "volumeMounts": [{

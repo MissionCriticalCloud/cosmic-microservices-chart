@@ -5,6 +5,6 @@ metadata:
   name: init-container-scripts
   namespace: {{ .Values.namespace }}
 data:
-  readiness-probe.sh: |
-{{ include "configmaps.init-container-scripts.readiness-probe.sh" . | indent 4 }}
+  readiness-probe.py: |
+{{ include "configmaps.init-container-scripts.readiness-probe.py" . | indent 4 }}
 {{- end -}}

@@ -14,14 +14,14 @@ spec:
         pod.beta.kubernetes.io/init-containers: |
           [{
             "name": "config-server-health-checker",
-            "image": "busybox",
-            "command": ["/bin/sh"],
+            "image": "python:alpine",
+            "command": ["/usr/local/bin/python"],
             "args": [
-              "/scripts/readiness-probe.sh",
-              "-h", "cosmic-config-server",
-              "-p", "8080",
-              "-P", "/health",
-              "-H", "X-Config-Token: {{ .Values.vault.read_only_token }}"
+              "/scripts/readiness-probe.py",
+              "--host", "cosmic-config-server",
+              "--port", "8080",
+              "--path", "/health",
+              "--headers", "{\"X-Config-Token\": \"{{ .Values.vault.read_only_token }}\"}"
             ],
             "imagePullPolicy": "IfNotPresent",
             "volumeMounts": [{
