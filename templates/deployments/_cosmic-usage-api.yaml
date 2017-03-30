@@ -35,6 +35,13 @@ spec:
       - name: cosmic-usage-api
         image: {{ .Values.registry }}missioncriticalcloud/cosmic-usage-api:{{ .Values.cosmic_usage_api.image_tag }}
         imagePullPolicy: IfNotPresent
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 30
         env:
         - name: SPRING_APPLICATION_JSON
           valueFrom:
