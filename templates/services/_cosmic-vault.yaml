@@ -11,7 +11,7 @@ spec:
   ports:
     - port: 8200
       protocol: TCP
-      nodePort: 30131
+      nodePort: 31101
   type: NodePort
 {{- end -}}
 {{- end -}}
