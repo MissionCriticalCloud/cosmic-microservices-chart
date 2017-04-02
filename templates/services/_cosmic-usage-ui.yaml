@@ -1,0 +1,17 @@
+{{- define "services.cosmic-usage-ui" -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: cosmic-usage-ui
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: cosmic-usage-ui
+  ports:
+    - port: 8080
+      protocol: TCP
+{{- if .Values.dev_mode }}
+      nodePort: 31002
+  type: NodePort
+{{- end -}}
+{{- end -}}
