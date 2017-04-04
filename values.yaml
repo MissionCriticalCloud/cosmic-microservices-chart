@@ -75,7 +75,3 @@ cosmic_config_server:
     port: 8200
     backend: secret
     health_token: cosmic-vault-token
-
-cosmic_usage_ui:
-  image_tag: latest
-  usage_api_base_url:  # for example: https://localhost:8080/   <-- don't forget the slash at the end
