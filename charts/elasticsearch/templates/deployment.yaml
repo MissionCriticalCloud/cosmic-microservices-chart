@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+{{- if .Values.namespace }}
+  namespace: {{ .Values.namespace }}
+{{- else if ((and (.Values.global)) (.Values.global.namespace)) }}
+  namespace: {{ .Values.global.namespace }}
+{{- end }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+{{- range $index, $node := .Values.service.ports }}
+        - containerPort: {{ $node.port }}
+{{- end }}

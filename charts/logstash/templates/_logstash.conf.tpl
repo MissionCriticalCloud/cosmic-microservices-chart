@@ -9,8 +9,8 @@ input {
     durable => true
     exclusive => false
     key => "cosmic-metrics-key"
-    user => {{ .Values.rabbitmq.username | quote }}
-    password => {{ .Values.rabbitmq.password | quote }}
+    user => {{ .Values.global.rabbitmq.username | quote }}
+    password => {{ .Values.global.rabbitmq.password | quote }}
     codec => "json"
   }
 }
@@ -24,7 +24,7 @@ filter {
 output {
   elasticsearch {
     hosts => [
-      {{- range $index, $node := .Values.elasticsearch.cluster_nodes -}}
+      {{- range $index, $node := .Values.global.elasticsearch.cluster_nodes -}}
         {{- if $index -}}
           ,
         {{- end -}}

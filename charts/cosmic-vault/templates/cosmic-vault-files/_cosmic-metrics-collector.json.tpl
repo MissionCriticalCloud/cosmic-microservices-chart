@@ -10,13 +10,13 @@
     "rabbitmq": {
       "host": "rabbitmq",
       "port": 5672,
-      "username": {{ .Values.rabbitmq.username | quote }},
-      "password": {{ .Values.rabbitmq.password | quote }}
+      "username": {{ .Values.global.rabbitmq.username | quote }},
+      "password": {{ .Values.global.rabbitmq.password | quote }}
     }
   },
   "cosmic": {
     "metrics-collector": {
-      "scan-interval": {{ .Values.cosmic_vault.cosmic_scan_interval | quote }},
+      "scan-interval": {{ .Values.cosmic_scan_interval | quote }},
       "broker-exchange": "cosmic-metrics-exchange",
       "broker-exchange-key": "cosmic-metrics-key"
     }

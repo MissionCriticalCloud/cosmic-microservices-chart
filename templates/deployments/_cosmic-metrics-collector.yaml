@@ -21,7 +21,7 @@ spec:
               "--host", "cosmic-config-server",
               "--port", "8080",
               "--path", "/health",
-              "--headers", "{\"X-Config-Token\": \"{{ .Values.vault.read_only_token }}\"}"
+              "--headers", "{\"X-Config-Token\": \"{{ .Values.global.vault.read_only_token }}\"}"
             ],
             "imagePullPolicy": "IfNotPresent",
             "volumeMounts": [{

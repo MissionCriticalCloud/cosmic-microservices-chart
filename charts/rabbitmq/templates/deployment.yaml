@@ -1,19 +1,25 @@
-{{- define "deployments.rabbitmq" -}}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: rabbitmq
+  name: {{ .Chart.Name }}
+{{- if .Values.namespace }}
   namespace: {{ .Values.namespace }}
+{{- else if ((and (.Values.global)) (.Values.global.namespace)) }}
+  namespace: {{ .Values.global.namespace }}
+{{- end }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
-        app: rabbitmq
+        app: {{ .Chart.Name }}
     spec:
       containers:
-      - name: rabbitmq
-        image: rabbitmq:{{ .Values.rabbitmq.image_tag }}
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
         - name: RABBITMQ_DEFAULT_USER
           valueFrom:
@@ -29,6 +35,5 @@ spec:
         - containerPort: 4369
         - containerPort: 5671
         - containerPort: 5672
-        - containerPort: 15672
         - containerPort: 25672
-{{- end -}}
+        - containerPort: 15672

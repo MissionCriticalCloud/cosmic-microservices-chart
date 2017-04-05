@@ -18,11 +18,11 @@ spec:
             "command": ["/usr/local/bin/python"],
             "args": [
               "/scripts/readiness-probe.py",
-{{- if eq .Values.vault.scheme "https" }}
+{{- if eq .Values.global.vault.scheme "https" }}
               "--tls",
 {{- end }}
-              "--host", {{ .Values.vault.host | quote }},
-              "--port", {{ .Values.vault.port | quote }},
+              "--host", {{ .Values.global.vault.host | quote }},
+              "--port", {{ .Values.global.vault.port | quote }},
               "--path", "/v1/sys/health"
             ],
             "imagePullPolicy": "IfNotPresent",
@@ -43,7 +43,7 @@ spec:
             port: 8080
             httpHeaders:
             - name: X-Config-Token
-              value: {{ .Values.vault.read_only_token }}
+              value: {{ .Values.global.vault.read_only_token }}
           initialDelaySeconds: 10
           timeoutSeconds: 5
           periodSeconds: 30

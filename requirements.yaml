@@ -1,0 +1,7 @@
+dependencies:
+      - name: elasticsearch
+        condition: dev_mode
+      - name: cosmic-vault
+        condition: dev_mode
+      - name: logstash
+      - name: rabbitmq

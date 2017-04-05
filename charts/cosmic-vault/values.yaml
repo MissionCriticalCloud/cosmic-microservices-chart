@@ -1,0 +1,16 @@
+# Default values for cosmic-vault.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+image:
+  repository: vault
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  type: NodePort
+  ports:
+    - port: 8200
+      protocol: TCP
+      nodePort: 31101
+cosmic_scan_interval: "0 */15 * * * *"
+root_token:

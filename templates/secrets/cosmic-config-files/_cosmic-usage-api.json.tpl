@@ -7,7 +7,7 @@
     "cloud": {
       "config": {
         "uri": "http://cosmic-config-server:8080",
-        "token": {{ .Values.vault.read_only_token | quote }}
+        "token": {{ .Values.global.vault.read_only_token | quote }}
       }
     }
   }

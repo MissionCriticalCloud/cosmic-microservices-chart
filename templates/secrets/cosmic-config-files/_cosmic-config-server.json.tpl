@@ -5,10 +5,10 @@
       "config": {
         "server": {
           "vault": {
-            "scheme": {{ .Values.vault.scheme | quote }},
-            "host": {{ .Values.vault.host | quote }},
-            "port": {{ .Values.vault.port }},
-            "backend": {{ .Values.vault.backend | quote }}
+            "scheme": {{ .Values.global.vault.scheme | quote }},
+            "host": {{ .Values.global.vault.host | quote }},
+            "port": {{ .Values.global.vault.port }},
+            "backend": {{ .Values.global.vault.backend | quote }}
           }
         }
       }
