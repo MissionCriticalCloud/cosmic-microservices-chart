@@ -16,7 +16,7 @@
   },
   "cosmic": {
     "metrics-collector": {
-      "scan-interval": "0 */15 * * * *",
+      "scan-interval": {{ .Values.cosmic_vault.cosmic_scan_interval | quote }},
       "broker-exchange": "cosmic-metrics-exchange",
       "broker-exchange-key": "cosmic-metrics-key"
     }
