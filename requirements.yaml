@@ -5,3 +5,4 @@ dependencies:
         condition: dev_mode
       - name: logstash
       - name: rabbitmq
+      - name: cosmic-common

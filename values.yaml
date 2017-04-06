@@ -13,9 +13,6 @@ services:
   - cosmic-usage-api
   - cosmic-usage-ui
 
-configmaps:
-  - init-container-scripts
-
 secrets:
   - cosmic-config-server
   - cosmic-metrics-collector

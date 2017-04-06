@@ -1,10 +1,12 @@
-{{- define "configmaps.init-container-scripts" -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: init-container-scripts
+{{- if .Values.namespace }}
   namespace: {{ .Values.namespace }}
+{{- else if ((and (.Values.global)) (.Values.global.namespace)) }}
+  namespace: {{ .Values.global.namespace }}
+{{- end }}
 data:
   readiness-probe.py: |
 {{ include "configmaps.init-container-scripts.readiness-probe.py" . | indent 4 }}
-{{- end -}}
