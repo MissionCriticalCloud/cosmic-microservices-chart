@@ -1,8 +1,10 @@
 dependencies:
-      - name: elasticsearch
-        condition: dev_mode
-      - name: cosmic-vault
-        condition: dev_mode
-      - name: logstash
-      - name: rabbitmq
-      - name: cosmic-common
+- name: elasticsearch
+  condition: dev_mode
+- name: cosmic-vault
+  condition: dev_mode
+- name: logstash
+- name: rabbitmq
+- name: cosmic-common
+- name: cosmic-config-server
+

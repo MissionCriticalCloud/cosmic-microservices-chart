@@ -1,15 +1,20 @@
-{{- define "deployments.cosmic-usage-ui" -}}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: cosmic-usage-ui
+  name: {{ .Chart.Name }}
+{{- if .Values.namespace }}
   namespace: {{ .Values.namespace }}
+{{- else if ((and (.Values.global)) (.Values.global.namespace)) }}
+  namespace: {{ .Values.global.namespace }}
+{{- end }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
-        app: cosmic-usage-ui
+        app: {{ .Chart.Name }}
       annotations:
         pod.beta.kubernetes.io/init-containers: |
           [{
@@ -31,16 +36,15 @@ spec:
           }]
     spec:
       containers:
-      - name: cosmic-usage-ui
-        image: {{ .Values.registry }}missioncriticalcloud/cosmic-usage-ui:{{ .Values.cosmic_usage_ui.image_tag }}
-        imagePullPolicy: IfNotPresent
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.global.registry }}{{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 8080
         env:
         - name: COSMIC_USAGE_API_BASE_URL
-          value: {{ .Values.cosmic_usage_ui.usage_api_base_url }}
+          value: {{ .Values.usage_api_base_url }}
       volumes:
       - name: init-container-scripts
         configMap:
           name: init-container-scripts
-{{- end -}}

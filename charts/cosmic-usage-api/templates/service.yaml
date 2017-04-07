@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}
+{{- if .Values.namespace }}
+  namespace: {{ .Values.namespace }}
+{{- else if ((and (.Values.global)) (.Values.global.namespace)) }}
+  namespace: {{ .Values.global.namespace }}
+{{- end }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+{{ toYaml .Values.service | indent 2 -}}
+  selector:
+    app: {{ .Chart.Name }}

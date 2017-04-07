@@ -5,48 +5,28 @@ namespace: missioncriticalcloud
 
 dev_mode: false
 
-registry: # for example: docker.io/   <-- don't forget the slash at the end
-
-
-services:
-  - cosmic-config-server
-  - cosmic-usage-api
-  - cosmic-usage-ui
-
-secrets:
-  - cosmic-config-server
-  - cosmic-metrics-collector
-  - cosmic-usage-api
-
-deployments:
-  - cosmic-config-server
-  - cosmic-metrics-collector
-  - cosmic-usage-api
-  - cosmic-usage-ui
-
 cosmic-vault:
   cosmic_scan_interval: "0 */1 * * * *"
 
-cosmic_usage_api:
-  image_tag: latest
+cosmic-usage-api:
+  image:
+    tag: latest
 
 cosmic_metrics_collector:
-  image_tag: latest
+  image:
+    tag: latest
 
-cosmic_config_server:
-  image_tag: latest
-  vault:
-    scheme: http
-    host: cosmic-vault
-    port: 8200
-    backend: secret
-    health_token: cosmic-vault-token
+cosmic-config-server:
+  image:
+    tag: latest
 
-cosmic_usage_ui:
-  image_tag: latest
+cosmic-usage-ui:
+  image:
+    tag: latest
   usage_api_base_url:  # for example: https://localhost:8080/   <-- don't forget the slash at the end
 
 global:
+  registry: # for example: docker.io/   <-- don't forget the slash at the end
   elasticsearch:
     cluster_nodes:
     - http://elasticsearch:9200

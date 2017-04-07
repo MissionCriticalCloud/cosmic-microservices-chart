@@ -1,15 +1,20 @@
-{{- define "deployments.cosmic-metrics-collector" -}}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: cosmic-metrics-collector
+  name: {{ .Chart.Name }}
+{{- if .Values.namespace }}
   namespace: {{ .Values.namespace }}
+{{- else if ((and (.Values.global)) (.Values.global.namespace)) }}
+  namespace: {{ .Values.global.namespace }}
+{{- end }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
-        app: cosmic-metrics-collector
+        app: {{ .Chart.Name }}
       annotations:
         pod.beta.kubernetes.io/init-containers: |
           [{
@@ -32,17 +37,27 @@ spec:
           }]
     spec:
       containers:
-      - name: cosmic-metrics-collector
-        image: {{ .Values.registry }}missioncriticalcloud/cosmic-metrics-collector:{{ .Values.cosmic_metrics_collector.image_tag }}
-        imagePullPolicy: IfNotPresent
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.global.registry }}{{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 30
         env:
         - name: SPRING_APPLICATION_JSON
           valueFrom:
             secretKeyRef:
-              name: cosmic-metrics-collector
+              name: cosmic-usage-api
               key: config
+        ports:
+{{- range $index, $node := .Values.service.ports }}
+        - containerPort: {{ $node.port }}
+{{- end }}
       volumes:
       - name: init-container-scripts
         configMap:
           name: init-container-scripts
-{{- end -}}
