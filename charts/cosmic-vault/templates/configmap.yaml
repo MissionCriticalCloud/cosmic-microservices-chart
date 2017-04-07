@@ -2,11 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cosmic-vault-files
-{{- if .Values.namespace }}
-  namespace: {{ .Values.namespace }}
-{{- else if ((and (.Values.global)) (.Values.global.namespace)) }}
   namespace: {{ .Values.global.namespace }}
-{{- end }}
 data:
   cosmic-usage-api.json: |
 {{ include "configmaps.cosmic-vault-files.cosmic-usage-api.json" . | indent 4 }}

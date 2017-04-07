@@ -25,7 +25,7 @@ This standard deployment will not generate an end-to-end working setup. To this 
 
 Deployment used in our [development bubble toolkit](https://github.com/MissionCriticalCloud/bubble-toolkit)
 ```bash
-helm install . --name=cosmic-release --set namespace=cosmic,registry=${MINIKUBE_HOST}:30081/,dev_mode=true --replace --wait
+helm install . --name=cosmic-release --set global.namespace=cosmic,global.registry=${MINIKUBE_HOST}:30081/,global.devMode=true --replace --wait
 ```
 This deployment creates all required components, except for a running Cosmic installation.
 
@@ -34,7 +34,7 @@ See the [Helm help on install options](https://github.com/kubernetes/helm/blob/m
 ### Special deployment values
 The `values.yaml` file is used for passing options to the deployments. These options can be overridden from the command line by using the `--set` parameter. Most options are fairly self explanatory, such as information required to connect components together; usernames, passwords, hostnames, ports or container image tags.
 The ones not so self explanatory (with default values):
-- `dev_mode: false`: when changed to `true`, all required containers and test configurations will be created. When left to `false`, will not provision an elasticsearch and vault containers.
+- `global.devMode: false`: when changed to `true`, all required containers and test configurations will be created. When left to `false`, will not provision an elasticsearch and vault containers.
 - `registry=`: Specifies the docker registry host to be used. An empty value refers to Docker hub, a value such as `${MINIKUBE_HOST}:30081/` refers to a local private registry. **As this string is simply prepended to the container image name, make sure you put a `/` at the end!**
 
 
@@ -55,7 +55,7 @@ A change to a (e.g.) deployment, specifically an actual value change in a deploy
 When a change is made to a config map, the config map will be implemented, but will not recreate any pods which may have it mounted.
 
 #### Removal of implemented deployments when removing defined deployments
-For example when switching from `dev_mode: true` to `dev_mode: false`, the deployment for elasticsearch is not defined anymore. When "upgrading" this, Helm will remove the deployment.
+For example when switching from `global.devMode: true` to `global.devMode: false`, the deployment for elasticsearch is not defined anymore. When "upgrading" this, Helm will remove the deployment.
 
 ## Chart format
 The setup of this chart is possibly different from other charts; this is basically a single chart which deploy the set of deployments, services, secrets (and etc) for multiple applications. This is reflected in the `values.yaml` fileby the respective sections (an example):

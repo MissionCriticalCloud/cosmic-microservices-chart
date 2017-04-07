@@ -1,31 +1,10 @@
 #
 # Default values.yaml
 #
-namespace: missioncriticalcloud
-
-dev_mode: false
-
-cosmic-vault:
-  cosmic_scan_interval: "0 */1 * * * *"
-
-cosmic-usage-api:
-  image:
-    tag: latest
-
-cosmic_metrics_collector:
-  image:
-    tag: latest
-
-cosmic-config-server:
-  image:
-    tag: latest
-
-cosmic-usage-ui:
-  image:
-    tag: latest
-  usage_api_base_url:  # for example: https://localhost:8080/   <-- don't forget the slash at the end
 
 global:
+  devMode: false
+  namespace: missioncriticalcloud
   registry: # for example: docker.io/   <-- don't forget the slash at the end
   elasticsearch:
     cluster_nodes:
@@ -38,5 +17,5 @@ global:
     host: cosmic-vault
     port: 8200
     backend: secret
-    root_token: cosmic-vault-token # only when 'dev_mode: true'
+    root_token: cosmic-vault-token # only when 'global.devMode: true'
     read_only_token: cosmic-vault-token
