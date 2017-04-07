@@ -22,7 +22,7 @@
   },
   "cosmic": {
     "usage-api": {
-      "scan-interval": "0 */15 * * * *"
+      "scan-interval": {{ .Values.cosmic_vault.cosmic_scan_interval | quote }}
     }
   }
 }

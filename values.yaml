@@ -60,6 +60,7 @@ elasticsearch:
 
 cosmic_vault:
   image_tag: latest
+  cosmic_scan_interval: "0 */15 * * * *"
 
 cosmic_usage_api:
   image_tag: latest
