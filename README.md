@@ -41,6 +41,12 @@ The ones not so self explanatory (with default values):
 ## Upgrading
 (Need some reference to upgrading with Helm)
 
+Following through on the example of the install in the development bubble toolkit, an upgrade would be started by the following command:
+```bash
+helm upgrade cosmic-release . --set global.namespace=cosmic,global.registry=${MINIKUBE_HOST}:30081/,global.dev_mode=true --wait
+```
+
+
 ### Experiences with upgrades
 
 Upgrades are basically configuration changes, like a new version of a container image.
@@ -58,23 +64,42 @@ When a change is made to a config map, the config map will be implemented, but w
 For example when switching from `global.devMode: true` to `global.devMode: false`, the deployment for elasticsearch is not defined anymore. When "upgrading" this, Helm will remove the deployment.
 
 ## Chart format
-The setup of this chart is possibly different from other charts; this is basically a single chart which deploy the set of deployments, services, secrets (and etc) for multiple applications. This is reflected in the `values.yaml` fileby the respective sections (an example):
+The setup of this chart is slightly different from other charts; this chart itself depends entirely on other charts. For now they are all located within the `charts/` subfolder in this repo. This alone will already ensure that they will be loaded. All of the charts are also mentioned in the `requirements.yaml` file wich specifies explicitly the dependencies, but also conditions for charts (_not_) to be loaded.
+ 
+### Experiences with Charts
+The [Helm repository contains a useful documentation section](https://github.com/kubernetes/helm/blob/master/docs/index.md). Some additional information or experiences specific to this chart:
+
+#### Global values
+Some data is shared among several charts. This is specified in the global `values.yaml` file under the `global:` section. 
+
+See [Helm documentation on Global Values](https://github.com/kubernetes/helm/blob/master/docs/chart_template_guide/subcharts_and_globals.md) for more information. 
+
+#### YAML anchors, references and overriding values
+The (processing of the) YAML files support anchors and references. It should be noted that overriding attributes takes place after the YAML has been processed. Following example was an attempt to set (default) values for multiple (sub)charts. Setting the defaults will work, but they (subsections/charts) can not be effectively overridden using that default section:
+
 ```yaml
-services:
-  - cosmic-config-server
-  - cosmic-usage-api
+shared: &SHARE
+ someItem: someValue
 
-configmaps:
-  - init-container-scripts
-  - cosmic-vault-files
-
-secrets:
-  - cosmic-metrics-collector
-  - cosmic-usage-api
-
-deployments:
-  - cosmic-metrics-collector
-  - cosmic-usage-api
+exampleChart: 
+  <<: *SHARE
+  anotherItem: anotherValue
 ```
-This is different to a standard chart, where only one application is deployed in a chart and dependent charts are either located in a `charts/` subfolder (one each), or specified in a the `requirements.yaml` file.
+Results in:
+```yaml
+shared:
+ someItem: someValue
 
+exampleChart: 
+  someItem: someValue
+  anotherItem: anotherValue
+```
+Calling Helm with override parameter (`--set shared.someItem=ultimateValue`), results in:
+```yaml
+shared:
+ someItem: ultimateValue
+
+exampleChart: 
+  someItem: someValue
+  anotherItem: anotherValue
+```
