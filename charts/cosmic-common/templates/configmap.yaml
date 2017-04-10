@@ -5,4 +5,4 @@ metadata:
   namespace: {{ .Values.global.namespace }}
 data:
   readiness-probe.py: |
-{{ include "configmaps.init-container-scripts.readiness-probe.py" . | indent 4 }}
+{{ include "cosmic-common.readiness-probe.py" . | indent 4 }}

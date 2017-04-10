@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: missioncriticalcloud/cosmic-usage-api
+  name: missioncriticalcloud/cosmic-usage-api
   tag: latest
   pullPolicy: IfNotPresent
 service:

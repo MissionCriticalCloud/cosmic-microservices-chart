@@ -7,7 +7,7 @@ global:
   namespace: missioncriticalcloud
   registry: # for example: docker.io/   <-- don't forget the slash at the end
   elasticsearch:
-    cluster_nodes:
+    clusterNodes:
     - http://elasticsearch:9200
   rabbitmq:
     username: root
@@ -17,5 +17,5 @@ global:
     host: cosmic-vault
     port: 8200
     backend: secret
-    root_token: cosmic-vault-token # only when 'global.devMode: true'
-    read_only_token: cosmic-vault-token
+    rootToken: cosmic-vault-token # only when 'global.devMode: true'
+    readOnlyToken: cosmic-vault-token

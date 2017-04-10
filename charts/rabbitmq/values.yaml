@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: rabbitmq
+  name: rabbitmq
   tag: management
   pullPolicy: IfNotPresent
 service:

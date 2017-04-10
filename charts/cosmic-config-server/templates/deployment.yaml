@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: {{ .Chart.Name }}
   namespace: {{ .Values.global.namespace }}
-  labels:
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   replicas: {{ .Values.replicaCount }}
   template:
@@ -36,7 +34,7 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: {{ .Values.global.registry }}{{ .Values.image.repository }}:{{ .Values.image.tag }}
+        image: {{ .Values.global.registry }}{{ .Values.image.name }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         readinessProbe:
           httpGet:
@@ -44,7 +42,7 @@ spec:
             port: 8080
             httpHeaders:
             - name: X-Config-Token
-              value: {{ .Values.global.vault.read_only_token }}
+              value: {{ .Values.global.vault.readOnlyToken }}
           initialDelaySeconds: 10
           timeoutSeconds: 5
           periodSeconds: 30

@@ -1,4 +1,4 @@
-{{- define "secrets.logstash-files.logstash.conf" -}}
+{{- define "logstash.logstash.conf" -}}
 input {
   rabbitmq {
     host => "rabbitmq"
@@ -24,7 +24,7 @@ filter {
 output {
   elasticsearch {
     hosts => [
-      {{- range $index, $node := .Values.global.elasticsearch.cluster_nodes -}}
+      {{- range $index, $node := .Values.global.elasticsearch.clusterNodes -}}
         {{- if $index -}}
           ,
         {{- end -}}

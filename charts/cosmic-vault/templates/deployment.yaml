@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: {{  .Chart.Name }}
   namespace: {{ .Values.global.namespace }}
-  labels:
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   replicas: {{ .Values.replicaCount }}
   template:
@@ -14,26 +12,26 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
-{{- if .Values.root_token }}
+{{- if .Values.rootToken }}
         - name: VAULT_DEV_ROOT_TOKEN_ID
-          value: {{ .Values.root_token }}
+          value: {{ .Values.rootToken }}
         - name: VAULT_TOKEN
-          value: {{ .Values.root_token }}
+          value: {{ .Values.rootToken }}
 {{- else if .Values.global.vault }}
-{{- if .Values.global.vault.root_token }}
+{{- if .Values.global.vault.rootToken }}
         - name: VAULT_DEV_ROOT_TOKEN_ID
-          value: {{ .Values.global.vault.root_token }}
+          value: {{ .Values.global.vault.rootToken }}
         - name: VAULT_TOKEN
-          value: {{ .Values.global.vault.root_token }}
+          value: {{ .Values.global.vault.rootToken }}
 {{- end }}
 {{- end }}
         - name: VAULT_ADDR
           value: http://127.0.0.1:8200
         ports:
-{{- range $index, $node := .Values.service.ports }}
+{{- range $node := .Values.service.ports }}
         - containerPort: {{ $node.port }}
 {{- end }}
         securityContext:

@@ -1,4 +1,4 @@
-{{- define "secrets.cosmic-config-files.cosmic-config-server.json" -}}
+{{- define "cosmic-config-server.cosmic-config-server.json" -}}
 {
   "spring": {
     "cloud": {

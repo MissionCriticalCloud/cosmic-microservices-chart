@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: missioncriticalcloud/cosmic-usage-ui
+  name: missioncriticalcloud/cosmic-usage-ui
   tag: latest
   pullPolicy: IfNotPresent
 service:
-usage_api_base_url:  # for example: https://localhost:8080/   <-- don't forget the slash at the end
+usageApiBaseUrl:  # for example: https://localhost:8080/   <-- don't forget the slash at the end

@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: vault
+  name: vault
   tag: latest
   pullPolicy: IfNotPresent
 service:
@@ -12,5 +12,5 @@ service:
     - port: 8200
       protocol: TCP
       nodePort: 31101
-cosmic_scan_interval: "0 */15 * * * *"
-root_token:
+cosmicScanInterval: "0 */15 * * * *"
+rootToken:

@@ -4,7 +4,7 @@
 namespace:
 replicaCount: 1
 image:
-  repository: elasticsearch
+  name: elasticsearch
   tag: 2
   pullPolicy: IfNotPresent
 service:
@@ -17,5 +17,3 @@ service:
     - name: transport
       port: 9300
       protocol: TCP
-
-

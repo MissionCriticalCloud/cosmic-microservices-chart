@@ -1,4 +1,4 @@
-{{- define "configmaps.cosmic-vault-files.init.sh" -}}
+{{- define "cosmic-vault.cosmic-vault-files.init.sh" -}}
 #!/bin/sh
 set -x
 

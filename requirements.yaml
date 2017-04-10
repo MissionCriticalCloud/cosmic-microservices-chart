@@ -7,4 +7,3 @@ dependencies:
 - name: rabbitmq
 - name: cosmic-common
 - name: cosmic-config-server
-

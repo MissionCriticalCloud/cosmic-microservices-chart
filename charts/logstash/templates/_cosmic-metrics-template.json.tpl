@@ -1,4 +1,4 @@
-{{- define "secrets.logstash-files.cosmic-metrics-template.json" -}}
+{{- define "logstash.cosmic-metrics-template.json" -}}
 {
   "order": 0,
   "template": "cosmic-metrics-*",

@@ -1,4 +1,4 @@
-{{- define "configmaps.cosmic-vault-files.cosmic-metrics-collector.json" -}}
+{{- define "cosmic-vault.cosmic-vault-files.cosmic-metrics-collector.json" -}}
 {
   "spring": {
     "datasource": {
@@ -16,7 +16,7 @@
   },
   "cosmic": {
     "metrics-collector": {
-      "scan-interval": {{ .Values.cosmic_scan_interval | quote }},
+      "scan-interval": {{ .Values.cosmicScanInterval | quote }},
       "broker-exchange": "cosmic-metrics-exchange",
       "broker-exchange-key": "cosmic-metrics-key"
     }

@@ -1,4 +1,4 @@
-{{- define "configmaps.init-container-scripts.readiness-probe.py" -}}
+{{- define "cosmic-common.readiness-probe.py" -}}
 import argparse
 import time
 import http.client

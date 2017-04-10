@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: {{ .Chart.Name }}
   namespace: {{ .Values.global.namespace }}
-  labels:
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   replicas: {{ .Values.replicaCount }}
   template:
@@ -22,7 +20,7 @@ spec:
               "--host", "cosmic-config-server",
               "--port", "8080",
               "--path", "/health",
-              "--headers", "{\"X-Config-Token\": \"{{ .Values.global.vault.read_only_token }}\"}"
+              "--headers", "{\"X-Config-Token\": \"{{ .Values.global.vault.readOnlyToken }}\"}"
             ],
             "imagePullPolicy": "IfNotPresent",
             "volumeMounts": [{
@@ -34,7 +32,7 @@ spec:
     spec:
       containers:
       - name: {{ .Chart.Name }}
-        image: {{ .Values.global.registry }}{{ .Values.image.repository }}:{{ .Values.image.tag }}
+        image: {{ .Values.global.registry }}{{ .Values.image.name }}:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         readinessProbe:
           httpGet:
@@ -50,7 +48,7 @@ spec:
               name: cosmic-usage-api
               key: config
         ports:
-{{- range $index, $node := .Values.service.ports }}
+{{- range $node := .Values.service.ports }}
         - containerPort: {{ $node.port }}
 {{- end }}
       volumes:

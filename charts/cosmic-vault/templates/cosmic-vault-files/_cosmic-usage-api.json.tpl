@@ -1,4 +1,4 @@
-{{- define "configmaps.cosmic-vault-files.cosmic-usage-api.json" -}}
+{{- define "cosmic-vault.cosmic-vault-files.cosmic-usage-api.json" -}}
 {
   "spring": {
     "datasource": {
@@ -10,7 +10,7 @@
     "elasticsearch": {
       "jest": {
         "uris": "
-          {{- range $index, $node := .Values.global.elasticsearch.cluster_nodes -}}
+          {{- range $index, $node := .Values.global.elasticsearch.clusterNodes -}}
             {{- if $index -}}
               ,
             {{- end -}}
@@ -22,7 +22,7 @@
   },
   "cosmic": {
     "usage-api": {
-      "scan-interval": {{ .Values.cosmic_scan_interval | quote }}
+      "scan-interval": {{ .Values.cosmicScanInterval | quote }}
     }
   }
 }

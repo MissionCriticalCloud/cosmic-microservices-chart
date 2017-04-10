@@ -35,6 +35,7 @@ See the [Helm help on install options](https://github.com/kubernetes/helm/blob/m
 The `values.yaml` file is used for passing options to the deployments. These options can be overridden from the command line by using the `--set` parameter. Most options are fairly self explanatory, such as information required to connect components together; usernames, passwords, hostnames, ports or container image tags.
 The ones not so self explanatory (with default values):
 - `global.devMode: false`: when changed to `true`, all required containers and test configurations will be created. When left to `false`, will not provision an elasticsearch and vault containers.
+- `devMode: false`: when changed to `true`, all required containers and test configurations will be created. When left to `false`, will not provision an elasticsearch and vault containers.
 - `registry=`: Specifies the docker registry host to be used. An empty value refers to Docker hub, a value such as `${MINIKUBE_HOST}:30081/` refers to a local private registry. **As this string is simply prepended to the container image name, make sure you put a `/` at the end!**
 
 
@@ -43,7 +44,7 @@ The ones not so self explanatory (with default values):
 
 Following through on the example of the install in the development bubble toolkit, an upgrade would be started by the following command:
 ```bash
-helm upgrade cosmic-release . --set global.namespace=cosmic,global.registry=${MINIKUBE_HOST}:30081/,global.dev_mode=true --wait
+helm upgrade cosmic-release . --set global.namespace=cosmic,global.registry=${MINIKUBE_HOST}:30081/,global.devMode=true --wait
 ```
 
 
@@ -62,6 +63,7 @@ When a change is made to a config map, the config map will be implemented, but w
 
 #### Removal of implemented deployments when removing defined deployments
 For example when switching from `global.devMode: true` to `global.devMode: false`, the deployment for elasticsearch is not defined anymore. When "upgrading" this, Helm will remove the deployment.
+
 
 ## Chart format
 The setup of this chart is slightly different from other charts; this chart itself depends entirely on other charts. For now they are all located within the `charts/` subfolder in this repo. This alone will already ensure that they will be loaded. All of the charts are also mentioned in the `requirements.yaml` file wich specifies explicitly the dependencies, but also conditions for charts (_not_) to be loaded.

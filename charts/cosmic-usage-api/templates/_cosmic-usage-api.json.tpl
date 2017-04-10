@@ -1,4 +1,4 @@
-{{- define "secrets.cosmic-config-files.cosmic-usage-api.json" -}}
+{{- define "cosmic-usage-api.cosmic-usage-api.json" -}}
 {
   "spring": {
     "application": {
@@ -7,7 +7,7 @@
     "cloud": {
       "config": {
         "uri": "http://cosmic-config-server:8080",
-        "token": {{ .Values.global.vault.read_only_token | quote }}
+        "token": {{ .Values.global.vault.readOnlyToken | quote }}
       }
     }
   }
