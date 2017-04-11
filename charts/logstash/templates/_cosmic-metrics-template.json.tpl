@@ -29,10 +29,6 @@
           "type": "string",
           "index": "not_analyzed"
         },
-        "accountUuid": {
-          "type": "string",
-          "index": "not_analyzed"
-        },
         "resourceUuid": {
           "type": "string",
           "index": "not_analyzed"
@@ -51,6 +47,9 @@
               "type": "double"
             },
             "cpu": {
+              "type": "double"
+            },
+            "size": {
               "type": "double"
             },
             "state": {
