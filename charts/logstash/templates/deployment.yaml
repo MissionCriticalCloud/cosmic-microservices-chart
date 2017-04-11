@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.global.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+{{- if .Values.global.devMode }}
+        args: ["-f", "/files/logstash.conf", "--debug"]
+{{- else }}
+        args: ["-f", "/files/logstash.conf"]
+{{- end }}
+        volumeMounts:
+        - name: logstash-files
+          mountPath: /files
+          readOnly: true
+      volumes:
+      - name: logstash-files
+        secret:
+          secretName: logstash-files

@@ -2,81 +2,20 @@
 # Default values.yaml
 #
 
-dev_mode: false
-
-registry: # for example: docker.io/   <-- don't forget the slash at the end
-
-namespace: missioncriticalcloud
-
-services:
-  - rabbitmq
-  - elasticsearch
-  - cosmic-vault
-  - cosmic-config-server
-  - cosmic-usage-api
-  - cosmic-usage-ui
-
-configmaps:
-  - init-container-scripts
-  - cosmic-vault-files
-
-secrets:
-  - rabbitmq
-  - logstash
-  - cosmic-config-server
-  - cosmic-metrics-collector
-  - cosmic-usage-api
-
-deployments:
-  - rabbitmq
-  - elasticsearch
-  - logstash
-  - cosmic-vault
-  - cosmic-config-server
-  - cosmic-metrics-collector
-  - cosmic-usage-api
-  - cosmic-usage-ui
-
-rabbitmq:
-  image_tag: management
-  username: root
-  password: password
-
-vault:
-  scheme: http
-  host: cosmic-vault
-  port: 8200
-  backend: secret
-  root_token: cosmic-vault-token # only when 'dev_mode: true'
-  read_only_token: cosmic-vault-token
-
-logstash:
-  image_tag: 2
-
-elasticsearch:
-  image_tag: 2
-  cluster_nodes:
-  - http://elasticsearch:9200
-
-cosmic_vault:
-  image_tag: latest
-  cosmic_scan_interval: "0 */15 * * * *"
-
-cosmic_usage_api:
-  image_tag: latest
-
-cosmic_metrics_collector:
-  image_tag: latest
-
-cosmic_config_server:
-  image_tag: latest
+global:
+  devMode: false
+  namespace: missioncriticalcloud
+  registry: # for example: docker.io/   <-- don't forget the slash at the end
+  elasticsearch:
+    clusterNodes:
+    - http://elasticsearch:9200
+  rabbitmq:
+    username: root
+    password: password
   vault:
     scheme: http
     host: cosmic-vault
     port: 8200
     backend: secret
-    health_token: cosmic-vault-token
-
-cosmic_usage_ui:
-  image_tag: latest
-  usage_api_base_url:  # for example: https://localhost:8080/   <-- don't forget the slash at the end
+    rootToken: cosmic-vault-token # only when 'global.devMode: true'
+    readOnlyToken: cosmic-vault-token

@@ -1,0 +1,59 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{  .Chart.Name }}
+  namespace: {{ .Values.global.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+{{- if .Values.rootToken }}
+        - name: VAULT_DEV_ROOT_TOKEN_ID
+          value: {{ .Values.rootToken }}
+        - name: VAULT_TOKEN
+          value: {{ .Values.rootToken }}
+{{- else if .Values.global.vault }}
+{{- if .Values.global.vault.rootToken }}
+        - name: VAULT_DEV_ROOT_TOKEN_ID
+          value: {{ .Values.global.vault.rootToken }}
+        - name: VAULT_TOKEN
+          value: {{ .Values.global.vault.rootToken }}
+{{- end }}
+{{- end }}
+        - name: VAULT_ADDR
+          value: http://127.0.0.1:8200
+        ports:
+{{- range $node := .Values.service.ports }}
+        - containerPort: {{ $node.port }}
+{{- end }}
+        securityContext:
+          capabilities:
+            add:
+            - IPC_LOCK
+        readinessProbe:
+          httpGet:
+            path: /v1/sys/health
+            port: 8200
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 30
+        volumeMounts:
+        - name: cosmic-vault-files
+          mountPath: /files
+          readOnly: true
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "/files/init.sh"]
+      volumes:
+      - name: cosmic-vault-files
+        configMap:
+          name: cosmic-vault-files

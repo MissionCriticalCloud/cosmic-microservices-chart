@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cosmic-vault-files
+  namespace: {{ .Values.global.namespace }}
+data:
+  cosmic-usage-api.json: |
+{{ include "cosmic-vault.cosmic-vault-files.cosmic-usage-api.json" . | indent 4 }}
+  cosmic-metrics-collector.json: |
+{{ include "cosmic-vault.cosmic-vault-files.cosmic-metrics-collector.json" . | indent 4 }}
+  init.sh: |
+{{ include "cosmic-vault.cosmic-vault-files.init.sh" . | indent 4 }}
