@@ -25,18 +25,6 @@
         "enabled": false
       },
       "properties": {
-        "domainUuid": {
-          "type": "string",
-          "index": "not_analyzed"
-        },
-        "resourceUuid": {
-          "type": "string",
-          "index": "not_analyzed"
-        },
-        "resourceType": {
-          "type": "string",
-          "index": "not_analyzed"
-        },
         "@timestamp": {
           "type": "date",
           "format": "strict_date_optional_time||epoch_millis"
@@ -51,10 +39,6 @@
             },
             "size": {
               "type": "double"
-            },
-            "state": {
-              "type": "string",
-              "index": "not_analyzed"
             }
           }
         }
