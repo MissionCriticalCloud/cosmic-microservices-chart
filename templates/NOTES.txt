@@ -1,0 +1,9 @@
+
+{{- if .Values.global.devMode -}}
+Access RabbitMQ web ui at http://minikube.cloud.lan:31103
+
+Access Grafana web ui at http://minikube.cloud.lan:{{ .Values.grafana.server.nodePort }}, Username: {{ .Values.grafana.server.adminUser }}, Password: {{ .Values.grafana.server.adminPassword }}
+{{- else -}}
+Access Grafana at NodePort {{ .Values.grafana.server.nodePort }}
+{{- end }}
+Grafana: A default dashboard can be imported from within the Grafana web ui using the file from this Chart folder, and selecting the cosmic-metrics-index: files/grafana_dashboard.json
