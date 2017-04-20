@@ -1,9 +1,30 @@
 dependencies:
 - name: elasticsearch
+  version: 0.1.0
   condition: global.devMode
+  repository: "file://_dependency_chart/elasticsearch"
 - name: cosmic-vault
+  version: 0.1.0
+  repository: "file://_dependency_chart/cosmic-vault"
   condition: global.devMode
 - name: logstash
+  version: 0.1.0
+  repository: "file://_dependency_chart/logstash"
 - name: rabbitmq
+  version: 0.1.0
+  repository: "file://_dependency_chart/rabbitmq"
 - name: cosmic-common
+  version: 0.1.0
+  repository: "file://_dependency_chart/cosmic-common"
 - name: cosmic-config-server
+  version: 0.1.0
+  repository: "file://_dependency_chart/cosmic-config-server"
+- name: cosmic-metrics-collector
+  version: 0.1.0
+  repository: "file://_dependency_chart/cosmic-metrics-collector"
+- name: cosmic-usage-api
+  version: 0.1.0
+  repository: "file://_dependency_chart/cosmic-usage-api"
+- name: cosmic-usage-ui
+  version: 0.1.0
+  repository: "file://_dependency_chart/cosmic-usage-ui"
