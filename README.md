@@ -19,12 +19,14 @@ kubectl create namespace missioncriticalcloud
 
 Standard deployment:
 ```bash
+helm dependency update
 helm install .
 ```
 This standard deployment will not generate an end-to-end working setup. To this end have a look at the [development bubble toolkit](https://github.com/MissionCriticalCloud/bubble-toolkit) setup.
 
 Deployment used in our [development bubble toolkit](https://github.com/MissionCriticalCloud/bubble-toolkit)
 ```bash
+helm dependency update
 helm install . --name=cosmic-release --set global.namespace=cosmic,global.registry=${MINIKUBE_HOST}:30081/,global.devMode=true --replace --wait
 ```
 This deployment creates all required components, except for a running Cosmic installation.
@@ -44,6 +46,7 @@ The ones not so self explanatory (with default values):
 
 Following through on the example of the install in the development bubble toolkit, an upgrade would be started by the following command:
 ```bash
+helm dependency update
 helm upgrade cosmic-release . --set global.namespace=cosmic,global.registry=${MINIKUBE_HOST}:30081/,global.devMode=true --wait
 ```
 
