@@ -1,4 +1,4 @@
-# Cosmic Microservices Chart
+# Cosmic Usage Chart
 
 This repository contains the Helm chart for deploying the [Cosmic Microservices](https://github.com/MissionCriticalCloud/cosmic-microservices) into a Kubernetes.
 
