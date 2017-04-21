@@ -8,3 +8,7 @@ image:
   pullPolicy: IfNotPresent
 service:
 usageApiBaseUrl:  # for example: https://localhost:8080/   <-- don't forget the slash at the end
+
+# Following values are required to have sane values
+global:
+  namespace:

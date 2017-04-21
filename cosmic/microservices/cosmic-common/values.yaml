@@ -2,3 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# Following values are required to have sane values
+global:
+  namespace:

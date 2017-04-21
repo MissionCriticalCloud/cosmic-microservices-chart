@@ -17,3 +17,7 @@ service:
     - name: transport
       port: 9300
       protocol: TCP
+
+# Following values are required to have sane values
+global:
+  namespace:

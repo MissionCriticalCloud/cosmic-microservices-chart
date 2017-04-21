@@ -7,3 +7,8 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 service:
+
+# Following values are required to have sane values
+global:
+  vault:
+    readOnlyToken:

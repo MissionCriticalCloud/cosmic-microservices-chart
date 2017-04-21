@@ -6,7 +6,10 @@ For more information about installing and using Helm, see its
 [README.md](https://github.com/kubernetes/helm/tree/master/README.md). To get a quick introduction to Charts see this [chart document](https://github.com/kubernetes/helm/blob/master/docs/charts.md).
 
 ## Installation
-As this is not an official chart, deployment will need to be done by specifying the folder (path). For ease of documentation, following examples assume you execute the helm commands from within the checked out folder (specifying the path by `.`)
+This chart is hosted as a fully functional Helm chart. Add the Cosmic repo to Helm for deployment:
+```bash
+helm repo add cosmic http://cosmic-helm-repository.cosmiccloud.io.s3-website.eu-central-1.amazonaws.com
+```
 
 Pre-requirements:
 - A running Cosmic installation (database) needs to be present, not only for metrics to be collected but also since the cosmic-usage-api needs to access the database for "path" (account) UUID-to-name translations.
@@ -19,15 +22,13 @@ kubectl create namespace missioncriticalcloud
 
 Standard deployment:
 ```bash
-helm dependency update
-helm install .
+helm install cosmic/cosmic-usage-chart 
 ```
 This standard deployment will not generate an end-to-end working setup. To this end have a look at the [development bubble toolkit](https://github.com/MissionCriticalCloud/bubble-toolkit) setup.
 
 Deployment used in our [development bubble toolkit](https://github.com/MissionCriticalCloud/bubble-toolkit)
 ```bash
-helm dependency update
-helm install . --name=cosmic-release --set global.namespace=cosmic,global.registry=${MINIKUBE_HOST}:30081/,global.devMode=true --replace --wait
+helm install cosmic/cosmic-usage-chart --name=cosmic-release --set global.namespace=cosmic,global.registry=${MINIKUBE_HOST}:30081/,global.devMode=true --replace --wait
 ```
 This deployment creates all required components, except for a running Cosmic installation.
 
@@ -37,8 +38,7 @@ See the [Helm help on install options](https://github.com/kubernetes/helm/blob/m
 The `values.yaml` file is used for passing options to the deployments. These options can be overridden from the command line by using the `--set` parameter. Most options are fairly self explanatory, such as information required to connect components together; usernames, passwords, hostnames, ports or container image tags.
 The ones not so self explanatory (with default values):
 - `global.devMode: false`: when changed to `true`, all required containers and test configurations will be created. When left to `false`, will not provision an elasticsearch and vault containers.
-- `devMode: false`: when changed to `true`, all required containers and test configurations will be created. When left to `false`, will not provision an elasticsearch and vault containers.
-- `registry=`: Specifies the docker registry host to be used. An empty value refers to Docker hub, a value such as `${MINIKUBE_HOST}:30081/` refers to a local private registry. **As this string is simply prepended to the container image name, make sure you put a `/` at the end!**
+- `global.registry=`: Specifies the docker registry host to be used. An empty value refers to Docker hub, a value such as `${MINIKUBE_HOST}:30081/` refers to a local private registry. **As this string is simply prepended to the container image name, make sure you put a `/` at the end!**
 
 
 ## Upgrading
@@ -46,8 +46,7 @@ The ones not so self explanatory (with default values):
 
 Following through on the example of the install in the development bubble toolkit, an upgrade would be started by the following command:
 ```bash
-helm dependency update
-helm upgrade cosmic-release . --set global.namespace=cosmic,global.registry=${MINIKUBE_HOST}:30081/,global.devMode=true --wait
+helm upgrade cosmic-release cosmic/cosmic-usage-chart --set global.namespace=cosmic,global.registry=${MINIKUBE_HOST}:30081/,global.devMode=true --wait
 ```
 
 

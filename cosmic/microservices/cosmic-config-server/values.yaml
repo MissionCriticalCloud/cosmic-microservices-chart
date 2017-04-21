@@ -8,3 +8,10 @@ image:
   pullPolicy: IfNotPresent
 service:
 
+# Following values are required to have sane values
+global:
+  vault:
+    scheme: https
+    host:
+    port:
+    backend:

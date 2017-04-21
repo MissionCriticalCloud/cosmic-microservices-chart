@@ -14,3 +14,7 @@ service:
       nodePort: 31101
 cosmicScanInterval: "0 */15 * * * *"
 rootToken:
+
+# Following values are required to have sane values
+global:
+  namespace:

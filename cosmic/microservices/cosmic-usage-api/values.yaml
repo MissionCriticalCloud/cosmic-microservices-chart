@@ -12,3 +12,9 @@ service:
     - port: 8080
       protocol: TCP
       nodePort: 31001
+
+# Following values are required to have sane values
+global:
+  namespace:
+  vault:
+    readOnlyToken:
