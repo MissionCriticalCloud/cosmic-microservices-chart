@@ -1,4 +1,0 @@
-apiVersion: v1
-description: Common objects and resources
-name: cosmic-common
-version: 0.1.0

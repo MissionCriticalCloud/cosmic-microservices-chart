@@ -1,0 +1,34 @@
+dependencies:
+# Dependencies on charts within the same Git repo are referenced via 'file://'
+- name: elasticsearch
+  version: 0.1.0
+  condition: global.devMode
+  repository: "file://../../custom/elasticsearch"
+- name: grafana
+  version: 0.3.1-cosmic-custom
+  repository: "file://../../custom/grafana"
+- name: cosmic-vault
+  version: 0.1.0
+  repository: "file://../../custom/cosmic-vault"
+  condition: global.devMode
+- name: logstash
+  version: 0.1.0
+  repository: "file://../../custom/logstash"
+- name: rabbitmq
+  version: 0.1.0
+  repository: "file://../../custom/rabbitmq"
+- name: cosmic-common
+  version: 0.1.0
+  repository: "file://cosmic-common"
+- name: cosmic-config-server
+  version: 0.1.0
+  repository: "file://cosmic-config-server"
+- name: cosmic-metrics-collector
+  version: 0.1.0
+  repository: "file://cosmic-metrics-collector"
+- name: cosmic-usage-api
+  version: 0.1.0
+  repository: "file://cosmic-usage-api"
+- name: cosmic-usage-ui
+  version: 0.1.0
+  repository: "file://cosmic-usage-ui"

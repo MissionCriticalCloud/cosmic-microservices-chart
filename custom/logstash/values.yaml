@@ -1,0 +1,14 @@
+# Default values for logstash.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace:
+replicaCount: 1
+image:
+  name: logstash
+  tag: 2
+  pullPolicy: IfNotPresent
+service:
+
+# Following values are required to have sane values
+global:
+  namespace:

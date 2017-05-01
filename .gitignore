@@ -1,1 +1,5 @@
 /.idea/
+**/charts/
+*.lock
+repo/*.tgz
+repo/index.yaml

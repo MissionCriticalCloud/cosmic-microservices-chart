@@ -1,9 +1,0 @@
-dependencies:
-- name: elasticsearch
-  condition: global.devMode
-- name: cosmic-vault
-  condition: global.devMode
-- name: logstash
-- name: rabbitmq
-- name: cosmic-common
-- name: cosmic-config-server
