@@ -31,7 +31,7 @@ output {
         {{- $node | quote -}}
       {{- end -}}
     ]
-    index => "cosmic-metrics-%{+YYYY.MM.dd}"
+    index => "cosmic-metrics-%{+YYYY.MM}"
     document_type => "metric"
     codec => "json"
     manage_template => true
