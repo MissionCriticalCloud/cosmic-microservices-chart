@@ -15,12 +15,6 @@ input {
   }
 }
 
-filter {
-  mutate {
-    remove_field => ["@version"]
-  }
-}
-
 output {
   elasticsearch {
     hosts => [
