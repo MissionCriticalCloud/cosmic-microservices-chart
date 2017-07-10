@@ -38,6 +38,18 @@ spec:
         env:
         - name: COSMIC_USAGE_API_BASE_URL
           value: {{ .Values.usageApiBaseUrl }}
+        - name: COSMIC_USAGE_UI_CPU_PRICE
+          value: {{ .Values.usageUICPUPrice }}
+        - name: COSMIC_USAGE_UI_MEMORY_PRICE
+          value: {{ .Values.usageUIMemoryPrice }}
+        - name: COSMIC_USAGE_UI_STORAGE_PRICE
+          value: {{ .Values.usageUIStoragePrice }}
+        - name: COSMIC_USAGE_UI_IPV4_PRICE
+          value: {{ .Values.usageUIIPv4Price }}
+        - name: COSMIC_USAGE_UI_SERVICE_FEE
+          value: {{ .Values.usageUIServiceFee }}
+        - name: COSMIC_USAGE_UI_INNOVATION_FEE
+          value: {{ .Values.usageUIInnovationFee }}
       volumes:
       - name: init-container-scripts
         configMap:
