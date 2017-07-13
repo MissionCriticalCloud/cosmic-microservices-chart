@@ -29,6 +29,6 @@ dependencies:
 - name: cosmic-usage-api
   version: 0.1.0
   repository: "file://cosmic-usage-api"
-- name: cosmic-usage-ui
+- name: cosmic-bill-viewer
   version: 0.1.0
-  repository: "file://cosmic-usage-ui"
+  repository: "file://cosmic-bill-viewer"
