@@ -13,6 +13,9 @@ service:
       protocol: TCP
       nodePort: 31101
 cosmicScanInterval: "0 */15 * * * *"
+cosmicTokenEncryptionKey: "D48F19E22D5E1BDA"
+cosmicTokenEncryptionSalt: "5C0744940B5C369B"
+cosmicTokenEncryptionTtl: "3600000"
 rootToken:
 
 # Following values are required to have sane values
