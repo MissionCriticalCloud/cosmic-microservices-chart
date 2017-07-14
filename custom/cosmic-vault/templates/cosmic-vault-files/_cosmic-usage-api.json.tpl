@@ -26,8 +26,7 @@
     },
     "usage-core": {
       "token-encryption-key": {{ .Values.cosmicTokenEncryptionKey | quote }},
-      "token-encryption-salt": {{ .Values.cosmicTokenEncryptionSalt | quote }},
-      "token-encryption-ttl": {{ .Values.cosmicTokenEncryptionTtl | quote }}
+      "token-encryption-salt": {{ .Values.cosmicTokenEncryptionSalt | quote }}
     }
   }
 }
