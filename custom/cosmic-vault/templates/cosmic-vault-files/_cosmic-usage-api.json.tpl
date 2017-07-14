@@ -23,6 +23,11 @@
   "cosmic": {
     "usage-api": {
       "scan-interval": {{ .Values.cosmicScanInterval | quote }}
+    },
+    "usage-core": {
+      "token-encryption-key": {{ .Values.cosmicTokenEncryptionKey | quote }},
+      "token-encryption-salt": {{ .Values.cosmicTokenEncryptionSalt | quote }},
+      "token-encryption-ttl": {{ .Values.cosmicTokenEncryptionTtl | quote }}
     }
   }
 }
