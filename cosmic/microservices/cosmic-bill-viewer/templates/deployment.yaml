@@ -35,21 +35,6 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: 8080
-        env:
-        - name: COSMIC_USAGE_API_BASE_URL
-          value: {{ .Values.usageApiBaseUrl }}
-        - name: COSMIC_USAGE_UI_CPU_PRICE
-          value: {{ .Values.usageUICPUPrice | quote }}
-        - name: COSMIC_USAGE_UI_MEMORY_PRICE
-          value: {{ .Values.usageUIMemoryPrice | quote }}
-        - name: COSMIC_USAGE_UI_STORAGE_PRICE
-          value: {{ .Values.usageUIStoragePrice | quote }}
-        - name: COSMIC_USAGE_UI_IPV4_PRICE
-          value: {{ .Values.usageUIIPv4Price | quote }}
-        - name: COSMIC_USAGE_UI_SERVICE_FEE
-          value: {{ .Values.usageUIServiceFee | quote }}
-        - name: COSMIC_USAGE_UI_INNOVATION_FEE
-          value: {{ .Values.usageUIInnovationFee | quote }}
       volumes:
       - name: init-container-scripts
         configMap:
