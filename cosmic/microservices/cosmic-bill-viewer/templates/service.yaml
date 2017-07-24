@@ -4,10 +4,6 @@ metadata:
   name: {{ .Chart.Name }}
   namespace: {{ .Values.global.namespace }}
 spec:
-  ports:
-    - port: 8080
-      protocol: TCP
-      nodePort: 31002
-  type: NodePort
+{{ toYaml .Values.service | indent 2 -}}
   selector:
-    app: {{ .Chart.Name  }}
+    app: {{ .Chart.Name }}

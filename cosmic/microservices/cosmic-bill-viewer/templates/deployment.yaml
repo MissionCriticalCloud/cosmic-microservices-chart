@@ -1,0 +1,80 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.global.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+      annotations:
+        pod.beta.kubernetes.io/init-containers: |
+          [
+            {
+              "name": "config-server-health-checker",
+              "image": "python:alpine",
+              "command": ["/usr/local/bin/python"],
+              "args": [
+                "/scripts/readiness-probe.py",
+                "--host", "cosmic-config-server",
+                "--port", "8080",
+                "--path", "/health",
+                "--headers", "{\"X-Config-Token\": \"{{ .Values.global.vault.readOnlyToken }}\"}"
+              ],
+              "imagePullPolicy": "IfNotPresent",
+              "volumeMounts": [
+                {
+                  "name": "init-container-scripts",
+                  "mountPath": "/scripts",
+                  "readOnly": true
+                }
+              ]
+            },
+            {
+              "name": "usage-api-health-checker",
+              "image": "python:alpine",
+              "command": ["/usr/local/bin/python"],
+              "args": [
+                "/scripts/readiness-probe.py",
+                "--host", "cosmic-usage-api",
+                "--port", "8080",
+                "--path", "/health"
+              ],
+              "imagePullPolicy": "IfNotPresent",
+              "volumeMounts": [
+                {
+                  "name": "init-container-scripts",
+                  "mountPath": "/scripts",
+                  "readOnly": true
+                }
+              ]
+            }
+          ]
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.global.registry }}{{ .Values.image.name }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+          periodSeconds: 30
+        env:
+        - name: SPRING_APPLICATION_JSON
+          valueFrom:
+            secretKeyRef:
+              name: cosmic-bill-viewer
+              key: config
+        ports:
+{{- range $node := .Values.service.ports }}
+        - containerPort: {{ $node.port }}
+{{- end }}
+      volumes:
+      - name: init-container-scripts
+        configMap:
+          name: init-container-scripts
