@@ -12,6 +12,16 @@ service:
     - port: 8200
       protocol: TCP
       nodePort: 31101
+
+cosmic:
+  billViewer:
+    cpuPrice: "1"
+    memoryPrice: "1"
+    storagePrice: "1"
+    publicIpPrice: "1"
+    serviceFee: "5"
+    InnovationFee: "5"
+
 cosmicScanInterval: "0 */15 * * * *"
 cosmicTokenEncryptionKey: "D48F19E22D5E1BDA"
 cosmicTokenEncryptionSalt: "5C0744940B5C369B"

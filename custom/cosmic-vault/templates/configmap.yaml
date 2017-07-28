@@ -4,6 +4,8 @@ metadata:
   name: cosmic-vault-files
   namespace: {{ .Values.global.namespace }}
 data:
+  cosmic-bill-viewer.json: |
+{{ include "cosmic-vault.cosmic-vault-files.cosmic-bill-viewer.json" . | indent 4 }}
   cosmic-usage-api.json: |
 {{ include "cosmic-vault.cosmic-vault-files.cosmic-usage-api.json" . | indent 4 }}
   cosmic-metrics-collector.json: |
