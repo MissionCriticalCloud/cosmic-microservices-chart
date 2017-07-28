@@ -6,6 +6,8 @@ metadata:
 data:
   cosmic-bill-viewer.json: |
 {{ include "cosmic-vault.cosmic-vault-files.cosmic-bill-viewer.json" . | indent 4 }}
+  cosmic-billing-reporter.json: |
+{{ include "cosmic-vault.cosmic-vault-files.cosmic-billing-reporter.json" . | indent 4 }}
   cosmic-metrics-collector.json: |
 {{ include "cosmic-vault.cosmic-vault-files.cosmic-metrics-collector.json" . | indent 4 }}
   cosmic-usage-api.json: |
