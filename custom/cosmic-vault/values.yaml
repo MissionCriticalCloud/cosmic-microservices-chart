@@ -21,10 +21,13 @@ cosmic:
     publicIpPrice: "1"
     serviceFee: "5"
     InnovationFee: "5"
+  metricsCollector:
+    scanInterval: "0 */15 * * * *"
+  usageApi:
+    scanInterval: "0 */15 * * * *"
+    tokenEncryptionKey: "D48F19E22D5E1BDA"
+    tokenEncryptionSalt: "5C0744940B5C369B"
 
-cosmicScanInterval: "0 */15 * * * *"
-cosmicTokenEncryptionKey: "D48F19E22D5E1BDA"
-cosmicTokenEncryptionSalt: "5C0744940B5C369B"
 rootToken:
 
 # Following values are required to have sane values

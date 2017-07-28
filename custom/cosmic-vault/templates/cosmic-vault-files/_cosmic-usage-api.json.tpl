@@ -22,11 +22,11 @@
   },
   "cosmic": {
     "usage-api": {
-      "scan-interval": {{ .Values.cosmicScanInterval | quote }}
+      "scan-interval": {{ .Values.cosmic.usageApi.scanInterval | quote }}
     },
     "usage-core": {
-      "token-encryption-key": {{ .Values.cosmicTokenEncryptionKey | quote }},
-      "token-encryption-salt": {{ .Values.cosmicTokenEncryptionSalt | quote }}
+      "token-encryption-key": {{ .Values.cosmic.usageApi.tokenEncryptionKey | quote }},
+      "token-encryption-salt": {{ .Values.cosmic.usageApi.tokenEncryptionSalt | quote }}
     }
   }
 }
