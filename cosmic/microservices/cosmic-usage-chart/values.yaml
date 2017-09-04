@@ -2,25 +2,6 @@
 # Default values.yaml
 #
 
-grafana:
-  server:
-    adminUser: root
-    adminPassword: password
-    serviceType: NodePort
-    nodePort: 31003
-    setDatasource:
-      enabled: true
-      image: appropriate/curl:latest
-      datasource:
-        name: cosmic-metrics-index
-        type: elasticsearch
-        database: "[cosmic-metrics-]YYYY.MM.DD"
-        jsonData: '\"esVersion\": 2, \"interval\": \"Daily\", \"timeField\": \"@timestamp\"'
-        url: http://elasticsearch.cosmic:9200
-        access: proxy
-        isDefault: true
-      restartPolicy: OnFailure
-
 global:
   devMode: false
   namespace: missioncriticalcloud

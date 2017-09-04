@@ -4,9 +4,6 @@ dependencies:
   version: 0.1.0
   condition: global.devMode
   repository: "file://../../custom/elasticsearch"
-- name: grafana
-  version: 0.3.1-cosmic-custom
-  repository: "file://../../custom/grafana"
 - name: cosmic-vault
   version: 0.1.0
   repository: "file://../../custom/cosmic-vault"
